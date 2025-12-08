@@ -1,0 +1,36 @@
+services:
+  ml-duration-service:
+    build:
+      context: ./duration_service
+      dockerfile: Dockerfile
+    container_name: ml-duration-service
+    restart: always
+    depends_on:
+      - rmq
+    networks:
+      - app-network
+
+  ml-category-service:
+    build:
+      context: ./classification_service
+      dockerfile: Dockerfile
+    container_name: ml-category-service
+    restart: always
+    depends_on:
+      - rmq
+    networks:
+      - app-network
+
+  rmq:
+    image: rabbitmq:3-management
+    container_name: calendar-rmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
