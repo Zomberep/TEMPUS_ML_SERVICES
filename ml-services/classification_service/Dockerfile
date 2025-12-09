@@ -16,4 +16,4 @@ COPY . .
 COPY rubert-tiny2/ /app/rubert-tiny2/
 
 # Запуск
-CMD ["python", "app.py"]
+CMD ["python", "-u", "app.py"]

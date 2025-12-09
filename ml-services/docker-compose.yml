@@ -23,7 +23,6 @@ services:
 
   rmq:
     image: rabbitmq:3-management
-    container_name: calendar-rmq
     restart: always
     ports:
       - "15672:15672"

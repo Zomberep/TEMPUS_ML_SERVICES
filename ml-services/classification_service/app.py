@@ -7,6 +7,7 @@ import numpy as np
 import pymorphy3
 import string
 import torch
+import traceback
 import json
 import time
 import pika
@@ -122,11 +123,12 @@ def process_message(channel, method, properties, body):
 
     except Exception as e:
         print(f"Ошибка обработки: {e}")
+        print(traceback.format_exc())
         channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
 
 def start_rabbitmq_listener():
     try:
-        time.sleep(5)
+        time.sleep(10)
 
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(
@@ -157,7 +159,7 @@ def start_rabbitmq_listener():
 
     except Exception as e:
         print(f"❌ RabbitMQ listener failed: {e}")
-        raise  # чтобы увидеть стек вызовов
+        raise
 
 
 if __name__ == "__main__":

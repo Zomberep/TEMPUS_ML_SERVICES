@@ -97,11 +97,10 @@ def process_message(channel, method, properties, body):
 
 def start_rabbitmq_listener():
     try:
-        time.sleep(5)
+        time.sleep(10)
 
-        # Параметры подключения (измените под ваш RabbitMQ)
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="rmq", port=5672)  # или "rabbitmq" в Docker
+            pika.ConnectionParameters(host="rmq", port=5672)
         )
         channel = connection.channel()
 
@@ -126,7 +125,6 @@ def start_rabbitmq_listener():
         )
 
         channel.start_consuming()
-
     except Exception as e:
         print(f"❌ RabbitMQ thread crashed: {e}")
         raise
