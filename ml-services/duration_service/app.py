@@ -80,7 +80,7 @@ def process_message(channel, method, properties, body):
 
         # 4. Отправка ответа обратно
         channel.basic_publish(
-            exchange="tempus",
+            exchange="",
             routing_key=properties.reply_to,  # очередь отправителя
             properties=pika.BasicProperties(
                 correlation_id=properties.correlation_id
